@@ -23,18 +23,18 @@ To start the service in the directory with the docker-compose file, execute the 
 
 ## Implementation
 
-### A) Input of data
+### Input of data
 - The program is designed to read both greyscale and colored RGB images(transferring them to greyscale).
 - Then, image data is saved to the numpy array. Numpy was chosen over regular Python lists because
 they occupy much less memory (an advantage for saving big images) and are generally designed to work with big data.
 Also, it simplifies the code, as numpy has more tools to operate on the array.
 - After reading the image, the greyscale value 0-255 is converted to the darkness of each pixel, with 0 being white and 1 being black
-### B) Finding the grid on the input image
+### Finding the grid on the input image
 - To find a grid, the function iterates over the second column, starting with the second row and going down. With every white pixel found, the function checks whether it may be part of the grid. If yes - we found a grid if no -
 this pixel was just part of the cell.
 - Because of that, if there are few possible grid variations, the program will find the grid with the lowest possible cell size. For example, if a full white picture is provided, the program will find a grid with each cell being 1 pixel in size.
 - if the grid was not found, the program responds with an error message with details of grid absence provided
-### C) Computing results
+### Computing results
 When the cell size in the grid is defined, we operate with loops, slicing the image array and finding its elements mean (numpy flattens two-dimensional array). So we have a new array with the darkness of each cell(mean of the darkness of its pixels), which is multiplied by 100 to get the level of probability that mine is there and then rounded to the nearest integer. Then, the program constructs JSON response with those cells whose level was >= minimum level provided. The indexes returned are those of the cells themselves.
 
 ## Possible improvements
